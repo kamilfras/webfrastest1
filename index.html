@@ -1,38 +1,4 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krajowy System e-Faktur - Twoje faktury</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 50px; }
-        table { width: 100%; border-collapse: collapse; }
-        table, th, td { border: 1px solid black; }
-        th, td { padding: 10px; text-align: left; }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Lista Twoich faktur</h1>
-        <button onclick="logout()">Wyloguj się</button>
-    </header>
-    <div>
-        <input type="text" id="search" placeholder="Wyszukaj po numerze referencyjnym">
-        <button onclick="searchInvoices()">Wyszukaj</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Numer referencyjny KSeF</th>
-                    <th>Data wystawienia</th>
-                    <th>Kwota</th>
-                    <th>Akcje</th>
-                </tr>
-            </thead>
-            <tbody id="invoiceList">
-                <!-- Tutaj będą wyświetlane faktury -->
-            </tbody>
-        </table>
-    </div>
+<!-- ... reszta kodu ... -->
 
     <script>
         // Sprawdź, czy użytkownik jest zalogowany
@@ -46,7 +12,7 @@
 
             // Tutaj powinna być logika wyszukiwania faktur w API KSeF
             // Na przykład:
-            fetch(`https://ksef-test.mf.gov.pl/api/online/Invoice/Get/${searchQuery}`, {
+            fetch(`https://ksef-demo.mf.gov.pl/api/online/Invoice/Get/${searchQuery}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`
