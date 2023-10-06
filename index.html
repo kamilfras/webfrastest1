@@ -3,83 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krajowy System e-Faktur - Twoje faktury</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 50px; }
-        table { width: 100%; border-collapse: collapse; }
-        table, th, td { border: 1px solid black; }
-        th, td { padding: 10px; text-align: left; }
-    </style>
+    <title>Matrix Login</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Lista Twoich faktur</h1>
-        <button onclick="logout()">Wyloguj się</button>
-    </header>
-    <div>
-        <input type="text" id="search" placeholder="Wyszukaj po numerze referencyjnym">
-        <button onclick="searchInvoices()">Wyszukaj</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Numer referencyjny KSeF</th>
-                    <th>Data wystawienia</th>
-                    <th>Kwota</th>
-                    <th>Akcje</th>
-                </tr>
-            </thead>
-            <tbody id="invoiceList">
-                <!-- Tutaj będą wyświetlane faktury -->
-            </tbody>
-        </table>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="login-box">
+        <h1>Logowanie</h1>
+        <input type="text" placeholder="Użytkownik">
+        <input type="password" placeholder="Hasło">
+        <button>Zaloguj się</button>
     </div>
-    <script>
-        // Sprawdź, czy użytkownik jest zalogowany
-        if (!localStorage.getItem('token')) {
-            window.location.href = 'login.html'; // Przekieruj na stronę logowania
-        }
-
-        function searchInvoices() {
-            const searchQuery = document.getElementById('search').value;
-            const token = localStorage.getItem('token');
-
-            // Tutaj powinna być logika wyszukiwania faktur w API KSeF
-            // Na przykład:
-            fetch(`https://ksef-demo.mf.gov.pl/api/online/Invoice/Get/${searchQuery}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Wyświetl faktury w tabeli
-                const invoiceList = document.getElementById('invoiceList');
-                invoiceList.innerHTML = '';
-                data.forEach(invoice => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${invoice.KSeFReferenceNumber}</td>
-                        <td>${invoice.date}</td>
-                        <td>${invoice.amount}</td>
-                        <td><button onclick="downloadInvoice('${invoice.KSeFReferenceNumber}')">Pobierz fakturę</button></td>
-                    `;
-                    invoiceList.appendChild(row);
-                });
-            })
-            .catch(error => {
-                console.error('Błąd:', error);
-            });
-        }
-
-        function downloadInvoice(referenceNumber) {
-            // Tutaj powinna być logika pobierania faktury z API KSeF
-        }
-
-        function logout() {
-            localStorage.removeItem('token');
-            window.location.href = 'login.html';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
